@@ -15,10 +15,11 @@ import rectInspect
 # Initialize detector
 detector = rectInspect.highlight_defects(
     threshold_ratio=0.2,
+    kernal_size = 20,
     min_area=100,
-    width_arr=[1],
-    height_arr=[8],
-    remove_rec=[(64,35)]  # Width, height to skip
+    width_arr=[1,5,2],
+    height_arr=[8,48,66],
+    remove_rec=[(64,35),(124,5)]  # [(Width, height)] to skip
 )
 
 ```
@@ -37,7 +38,7 @@ Detect defects based on initialized parameters. Returns the number of detected i
 
 ```python
 # Detect defects
-detected_items = detector.detect_defects(filtered, detector.merged_contours)
+detected_items = detector.detect_defects(filtered, detector.merged_contours,offset_x,offset_y)
 
 # Print results
 detector.print_results(detected_items)

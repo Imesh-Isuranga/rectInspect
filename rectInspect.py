@@ -5,9 +5,11 @@ import time
 
 class highlight_defects:
     merged_contours = None
+    kernal_size = None
 
-    def __init__(self, threshold_ratio=0.2, min_area=100, width_arr=None, height_arr=None, remove_rec=None):
+    def __init__(self, threshold_ratio=0.2, kernal_size=20, min_area=100, width_arr=None, height_arr=None, remove_rec=None):
         self.threshold_ratio = threshold_ratio
+        self.kernal_size = kernal_size
         self.min_area = min_area
 
         # Validate essential parameters
@@ -34,7 +36,7 @@ class highlight_defects:
     User can insert any img. 
     When add sobel mask,user can define threshold value.According to user input threshold value diffent type of objects will detect.
     '''
-    def process_image(self, image_path, threshold_value=None):
+    def process_image(self, image_path, threshold_value=None,kernal_size=None):
         img = cv2.imread(image_path)
         if img is None:
             raise ValueError("Image not found")
@@ -70,7 +72,7 @@ class highlight_defects:
                 continue
             cv2.rectangle(mask, (x, y), (x+w, y+h), 255, -1)
 
-        merge_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (20, 20))
+        merge_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (kernal_size, kernal_size))
         merged = cv2.dilate(mask, merge_kernel, iterations=1)
         self.merged_contours, _ = cv2.findContours(merged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
