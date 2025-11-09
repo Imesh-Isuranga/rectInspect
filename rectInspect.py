@@ -72,7 +72,7 @@ class highlight_defects:
                 continue
             cv2.rectangle(mask, (x, y), (x+w, y+h), 255, -1)
 
-        merge_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (kernal_size, kernal_size))
+        merge_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (self.kernal_size, self.kernal_size))
         merged = cv2.dilate(mask, merge_kernel, iterations=1)
         self.merged_contours, _ = cv2.findContours(merged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
