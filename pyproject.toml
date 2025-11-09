@@ -6,9 +6,9 @@ build-backend = "hatchling.build"
 name = "rectInspect"
 version = "0.0.1"
 authors = [
-  { name="Mariya Sha", email="mariya@pythonsimplified.org" },
+  { name="Imesh Isuranga", email="imeshisuranga00@gmail.com" },
 ]
-description = "collection of biblical rectInspect and their family relations"
+description = "rectInspect is a Python library for automated image defect detection. It allows users to detect, highlight, and manually inspect defects in images based on customizable width and height rules. You can also interactively draw rectangles on images to measure dimensions and areas. The library supports skipping certain rectangle sizes and is designed for fast, easy, and flexible inspection of defects in various types of images."
 readme = "README.md"
 requires-python = ">=3.0"
 classifiers = [
@@ -18,5 +18,5 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/MariyaSha/rectInspect"
-Issues = "https://github.com/MariyaSha/rectInspect"
+Homepage = "https://github.com/Imesh-Isuranga/rectInspect"
+Issues = "https://github.com/Imesh-Isuranga/rectInspect/issues"
