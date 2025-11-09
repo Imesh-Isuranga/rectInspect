@@ -70,7 +70,7 @@ class highlight_defects:
                 continue
             cv2.rectangle(mask, (x, y), (x+w, y+h), 255, -1)
 
-        merge_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (10, 10))
+        merge_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (20, 20))
         merged = cv2.dilate(mask, merge_kernel, iterations=1)
         self.merged_contours, _ = cv2.findContours(merged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
@@ -81,9 +81,8 @@ class highlight_defects:
     '''
     This function will remove unwanted detected objects by filtering using width and height of detected object.
     '''
-    def detect_defects(self, filtered, merged_contours):
+    def detect_defects(self, filtered, merged_contours,offset_x,offset_y):
         detected_items = 0
-        detected_top_texts = 0
         updated_flags = [True] * len(self.ratios)
 
         for cnt in merged_contours:
@@ -92,7 +91,7 @@ class highlight_defects:
             # Check against remove_rec list (skip boxes near remove_rec pairs)
             skip = False
             for rw, rh in self.remove_rec:
-                if abs(w - rw) <= 1 and abs(h - rh) <= 1:
+                if abs(w - rw) <= offset_x and abs(h - rh) <= offset_y:
                     skip = True
                     break
             if skip:
@@ -110,14 +109,7 @@ class highlight_defects:
 
             detected_items += 1
             area = w * h
-            # print(f"Detected box - w:{w}, h:{h}, area:{area}")
-
-            # Count top texts for first matching ratio
-            # for i, (rw, rh) in enumerate(self.ratios):
-            #     if updated_flags[i]:
-            #         detected_top_texts += 1
-            #         updated_flags[i] = False
-            #         break
+            print(f"Detected boxes - w:{w}, h:{h}, area:{area}")
 
             cv2.rectangle(filtered, (x, y), (x+w, y+h), (0,0,255), 2)
 
@@ -204,3 +196,4 @@ class highlight_defects:
 
 if __name__ == "__main__":
     highlight_defects()
+
