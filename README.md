@@ -76,3 +76,4 @@ detector.draw_rectangle_with_mouse("final.jpg")
 pip install rectInspect
 ```
 # rectInspect
+https://pypi.org/project/rectInspect/#description
